@@ -97,18 +97,29 @@ userController.put("/changepassword", function(req, res){
 
 
 // TODO Delete Account Route
-UserController.delete('/delete', function (req, res) {
-  
-    User.destroy({
-        where: { username: req.body.user.username }
-    }).then (
-        function deleteAccountSuccess(data){
-            res.send("Your account has been deleted.")
-        },
-        function deleteLogError(err){
-            res.send(500, err.message);
+userController.delete('/delete', function (req, res) {
+    User.findOne({ where: { username: req.body.user.username }}). then(
+        function(user) {
+            if (user){
+                console.log(user);
+                bcrypt.compare(req.body.user.password, user.passwordhash, function (err, matches){
+                    if(matches){
+                        User.destroy({
+                            where: { username: req.body.user.username }
+                        }).then (
+                            function deleteAccountSuccess(data){
+                                res.send("Your account has been deleted.")
+                            },
+                            function deleteLogError(err){
+                                res.send(500, err.message);
+                            }
+                        )
+                    }
+                })
+            }
         }
-    ); 
+    )
+  
 });
 // TODO Change password Route
 
