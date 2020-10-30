@@ -54,7 +54,7 @@ characterController.post('/create', function(request, response) {
     let CharPersonalityDescription = request.body.Character.charPersonalityDescription;
     let CharPersonalityQuirk = request.body.Character.charPersonalityQuirk;
   
-    CharacterModel            // add new row to table
+    Character            // add new row to table
       .create({//key :  property (from body of request)
         owner_id: owner_id,
         CharName: CharName,
@@ -95,7 +95,7 @@ characterController.delete('/delete', function (req, res) {
     const data = req.params.id;
     const owner_id = req.user.id;
 
-    CharacterModel
+    Character
     .destroy({
         where: { id: data, owner_id: owner_id}
     }).then (
