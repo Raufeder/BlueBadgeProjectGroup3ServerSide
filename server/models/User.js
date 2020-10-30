@@ -14,10 +14,6 @@ const User = db.define('user', {
   url_userimage: {
     type: DataTypes.STRING,
     allowNull: true
-  },
-  screen_name: {
-    type: DataTypes.STRING,
-    allowNull: true
   }
 
 });

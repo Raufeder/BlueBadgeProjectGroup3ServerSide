@@ -33,10 +33,10 @@ characterController.get("/", async (req, res) => {
 
 
 // CREATE Character Route
-router.post('/create', function(request, response) {
+characterController.post('/create', function(request, response) {
 
     //  Pulls new character data from input fields to write to DB
-    let owner_id = request.User.id; // user id set in validate-session
+    let owner_id = request.user.id; // user id set in validate-session
     let CharName = request.body.Character.charName;
     let CharImageURL = request.body.Character.charName;
     let CharBodyType = request.body.Character.charBodyType;
