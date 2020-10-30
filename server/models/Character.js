@@ -1,7 +1,13 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db');
 
+//  Note: an "//R" indicates that the field has an initially generated random option
+
 const Character = db.define('character', {
+    owner_id: {                     // user id
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     CharName: {                     //R initially a pre-generated first & last name w/ middle initial
       type: DataTypes.STRING(60),
       allowNull: false
