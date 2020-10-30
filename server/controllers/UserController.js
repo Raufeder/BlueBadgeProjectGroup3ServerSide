@@ -12,12 +12,12 @@ userController.post('/test', function(req, res){
 
 //TODO Register Route
 userController.post('/register', function(req, res) {
-    let email = req.body.user.email;
+    let username = req.body.user.username;
     let password = req.body.user.password;
 
     User.create({
-        email: email,
-        password: bcrypt.hashSync(password, 12)
+        username: username,
+        passwordhash: bcrypt.hashSync(password, 12)
     }).then(
         function createSuccess(user) {
             var token = jwt.sign({id: user.id}, process.env.JWT_SECRET,
@@ -32,7 +32,7 @@ userController.post('/register', function(req, res) {
         function createError(err) {
             if (err instanceof UniqueConstraintError) {
                 res.status(409).json({
-                    message: 'Email already in use.'
+                    message: 'Username already in use.'
                 });
             } else {
                 res.status(500).json({
@@ -45,11 +45,12 @@ userController.post('/register', function(req, res) {
 
 // TODO Login Route
 userController.post('/login', function(req, res) {
-    User.findOne( { where: { email: req.body.user.email } } ).then(
+    User.findOne( { where: { username: req.body.user.username } } ).then(
 
         function(user) {
             if (user) {
-                bcrypt.compare(req.body.user.password, user.password, function (err, matches) {
+                console.log(user);
+                bcrypt.compare(req.body.user.password, user.passwordhash, function (err, matches) {
                     if (matches) {
                         var token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: 60*60*24});
                         res.json({
