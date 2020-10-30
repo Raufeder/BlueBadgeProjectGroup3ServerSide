@@ -12,7 +12,7 @@ characterController.get("/", async (req, res) => {
     try {
         const lists = await Character.findAll({
             where: {
-                owner_id: req.user.id,
+                createdBy: req.user.id,
             },
         });
         if (lists) {
@@ -54,7 +54,7 @@ characterController.post('/create', function(request, response) {
     let CharPersonalityDescription = request.body.Character.charPersonalityDescription;
     let CharPersonalityQuirk = request.body.Character.charPersonalityQuirk;
   
-    Character            // add new row to table
+    CharacterModel            // add new row to table
       .create({//key :  property (from body of request)
         owner_id: owner_id,
         CharName: CharName,
@@ -87,13 +87,27 @@ characterController.post('/create', function(request, response) {
   
   });
 
-
-
-
-
 /*
 TODO Edit Character Route
-TODO Delete Character Route
-*/
+
+TODO: Delete Character Route*/
+characterController.delete('/delete', function (req, res) {
+    const data = req.params.id;
+    const owner_id = req.user.id;
+
+    CharacterModel
+    .destroy({
+        where: { id: data, owner_id: owner_id}
+    }).then (
+        function deleteLogSuccess(data){
+            res.send("Character deleted successfully")
+        },
+        function deleteLogError(err){
+            res.send(500, err.message);
+        }
+    ); 
+});
+
+
 
 module.exports = characterController;
