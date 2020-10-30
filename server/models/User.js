@@ -10,14 +10,6 @@ const User = db.define('user', {
   password: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  userURL: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  userScreenName: {
-    type: DataTypes.STRING,
-    allowNull: true
   }
 
 });
