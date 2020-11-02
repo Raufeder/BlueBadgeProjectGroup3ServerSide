@@ -33,10 +33,10 @@ characterController.get("/", async (req, res) => {
 
 
 // CREATE Character Route
-characterController.post('/create/:id', function(request, response) {
+characterController.post('/create', function(request, response) {
 
     //  Pulls new character data from input fields to write to DB
-    let owner_id = request.User.id; // user id set in validate-session
+    let owner_id = request.user.id; // user id set in validate-session
     let CharName = request.body.Character.charName;
     let CharImageURL = request.body.Character.charName;
     let CharBodyType = request.body.Character.charBodyType;
@@ -54,7 +54,7 @@ characterController.post('/create/:id', function(request, response) {
     let CharPersonalityDescription = request.body.Character.charPersonalityDescription;
     let CharPersonalityQuirk = request.body.Character.charPersonalityQuirk;
   
-    CharacterModel            // add new row to table
+    Character            // add new row to table
       .create({//key :  property (from body of request)
         owner_id: owner_id,
         CharName: CharName,
@@ -157,7 +157,22 @@ characterController.put('/edit/:id', function(request, response){
     )
 });
 
+// Delete Character Route
+characterController.delete('/delete', function (req, res) {
+    const data = req.params.id;
+    const owner_id = req.user.id;
 
-//TODO Delete Character Route
+    Character
+    .destroy({
+        where: { id: data, owner_id: owner_id}
+    }).then (
+        function deleteLogSuccess(data){
+            res.send("Character deleted successfully")
+        },
+        function deleteLogError(err){
+            res.send(500, err.message);
+        }
+    ); 
+});
 
 module.exports = characterController;
