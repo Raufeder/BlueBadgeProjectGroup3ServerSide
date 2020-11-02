@@ -95,6 +95,22 @@ userController.put("/changepassword", function(req, res){
   );
 });
 
+//TODO View Individual User Data
+
+userController.get("/view", function (req, res){
+   User.findOne({
+        where: { username: req.body.user.username}
+    })
+    .then(
+        function findOneSuccess(data){
+            res.json(data);
+        },
+        function findOneError(err) {
+            res.send(500, err.message);
+        }
+    )
+    }) 
+
 
 // TODO Delete Account Route
 userController.delete('/delete', function (req, res) {
