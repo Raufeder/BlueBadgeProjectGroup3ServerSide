@@ -96,10 +96,14 @@ userController.put("/changepassword", function(req, res){
 });
 
 //TODO View Individual User Data
+<<<<<<< HEAD
 
 userController.post("/view", function (req, res){
+=======
+userController.get("/view/:username", function (req, res){
+>>>>>>> 2b634968e3a19a08e2d0525954c21570b59d5677
    User.findOne({
-        where: { username: req.body.user.username}
+        where: { username: req.params.username }
     })
     .then(
         function findOneSuccess(data){
@@ -109,7 +113,7 @@ userController.post("/view", function (req, res){
             res.send(500, err.message);
         }
     )
-    }) 
+});
 
 
 // TODO Delete Account Route
