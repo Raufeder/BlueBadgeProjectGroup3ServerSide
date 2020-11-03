@@ -97,7 +97,7 @@ userController.put("/changepassword", function(req, res){
 
 
 // TODO Delete Account Route
-UserController.delete('/delete', function (req, res) {
+userController.delete('/delete', function (req, res) {
   
     User.destroy({
         where: { username: req.body.user.username }
