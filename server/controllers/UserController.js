@@ -97,7 +97,7 @@ userController.put("/changepassword", function(req, res){
 
 //TODO View Individual User Data
 
-userController.get("/view", function (req, res){
+userController.post("/view", function (req, res){
    User.findOne({
         where: { username: req.body.user.username}
     })
