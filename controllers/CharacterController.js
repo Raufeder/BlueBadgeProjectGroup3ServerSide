@@ -38,13 +38,13 @@ characterController.post('/create', function(request, response) {
     //  Pulls new character data from input fields to write to DB
     let owner_id = request.user.id; // user id set in validate-session
     let CharName = request.body.Character.charName;
-    let CharImageURL = request.body.Character.charName;
+    let CharImageURL = request.body.Character.charImageURL;
     let CharBodyType = request.body.Character.charBodyType;
     let CharHair = request.body.Character.charHair;
     let CharEyeColor = request.body.Character.charEyeColor;
     let CharGender = request.body.Character.charGender;
     let CharAge = request.body.Character.charAge;
-    let CharRelationshipStatus = request.body.Character.charRelationshipsStatus;
+    let CharRelationshipStatus = request.body.Character.charRelationshipStatus;
     let CharChildren = request.body.Character.charChildren;
     let CharOccupation = request.body.Character.charOccupation;
     let CharDescription = request.body.Character.charDescription;
@@ -90,15 +90,16 @@ characterController.post('/create', function(request, response) {
 
 //Edit Character Route
 characterController.put('/edit/:id', function(request, response){
+    console.log(request.body);
     let owner_id = request.user.id; // user id set in validate-session
     let CharName = request.body.Character.charName;
-    let CharImageURL = request.body.Character.charName;
+    let CharImageURL = request.body.Character.charImageURL;
     let CharBodyType = request.body.Character.charBodyType;
     let CharHair = request.body.Character.charHair;
     let CharEyeColor = request.body.Character.charEyeColor;
     let CharGender = request.body.Character.charGender;
     let CharAge = request.body.Character.charAge;
-    let CharRelationshipStatus = request.body.Character.charRelationshipsStatus;
+    let CharRelationshipStatus = request.body.Character.charRelationshipStatus;
     let CharChildren = request.body.Character.charChildren;
     let CharOccupation = request.body.Character.charOccupation;
     let CharDescription = request.body.Character.charDescription;
@@ -108,7 +109,7 @@ characterController.put('/edit/:id', function(request, response){
     let CharPersonalityDescription = request.body.Character.charPersonalityDescription;
     let CharPersonalityQuirk = request.body.Character.charPersonalityQuirk;
 
-    CharacterModel            // add new row to table
+    Character            // add new row to table
       .update({//key :  property (from body of request)
         owner_id: owner_id,
         CharName: CharName,
@@ -128,7 +129,7 @@ characterController.put('/edit/:id', function(request, response){
         CharPersonalityDescription: CharPersonalityDescription,
         CharPersonalityQuirk: CharPersonalityQuirk
     },
-    {where: {id:data}}
+    {where: {id: request.params.id}}
     ).then(
         function updateSuccess(updatedChar) {
             response.json({
@@ -158,7 +159,7 @@ characterController.put('/edit/:id', function(request, response){
 });
 
 // Delete Character Route
-characterController.delete('/delete', function (req, res) {
+characterController.delete('/delete/:id', function (req, res) {
     const data = req.params.id;
     const owner_id = req.user.id;
 
