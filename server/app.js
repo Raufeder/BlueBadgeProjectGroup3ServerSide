@@ -24,8 +24,8 @@ app.get("/", (req, res) => {
   db.authenticate()
   .then(() => db.sync())
   .then(() =>
-    app.listen(8080, () => {
-      console.log(`[server]: App is listening on localhost:8080`);
+    app.listen(process.env.PORT, () => {
+      console.log(`[server]: App is listening on localhost:${process.env.PORT}`);
     })
   )
   .catch((e) => {
