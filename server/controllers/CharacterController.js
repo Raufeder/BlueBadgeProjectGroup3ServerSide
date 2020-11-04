@@ -12,7 +12,7 @@ characterController.get("/", async (req, res) => {
     try {
         const lists = await Character.findAll({
             where: {
-                createdBy: req.user.id,
+                owner_id: req.user.id,
             },
         });
         if (lists) {
@@ -34,7 +34,7 @@ characterController.get("/", async (req, res) => {
 
 // CREATE Character Route
 characterController.post('/create', function(request, response) {
-
+    console.log(request.body);
     //  Pulls new character data from input fields to write to DB
     let owner_id = request.user.id; // user id set in validate-session
     let CharName = request.body.Character.charName;
@@ -82,7 +82,7 @@ characterController.post('/create', function(request, response) {
         },
         function createError(err) {             // if not successful
           response.send(500, err.message);           // return an error message
-          message: "Failed to create new character"
+          //let err = { message: "Failed to create new character" }
         }
       );
   
@@ -90,7 +90,7 @@ characterController.post('/create', function(request, response) {
 
 //Edit Character Route
 characterController.put('/edit/:id', function(request, response){
-    let owner_id = request.User.id; // user id set in validate-session
+    let owner_id = request.user.id; // user id set in validate-session
     let CharName = request.body.Character.charName;
     let CharImageURL = request.body.Character.charName;
     let CharBodyType = request.body.Character.charBodyType;
