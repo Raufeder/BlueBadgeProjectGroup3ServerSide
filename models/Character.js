@@ -21,7 +21,7 @@ const Character = db.define('character', {
       allowNull: true
     },
     CharHair: {                     //R primarily a description of hair length, texture and color (specific)
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(100),
       allowNull: true
     },
     CharEyeColor: {                 //R eye color; specific version of black, blue, brown, gray, green, violet
@@ -41,11 +41,11 @@ const Character = db.define('character', {
       allowNull: true
     },
     CharChildren: {                 //R a numeric value and possibly description of status (expecting, planning, etc)
-      type: DataTypes.STRING(40),
+      type: DataTypes.STRING(80),
       allowNull: true
     },
     CharOccupation: {               // entirely user entered - AT THIS TIME
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING(80),
       allowNull: true
     },
     CharDescription: {              // entirely user entered (starting description of field purpose provided)
